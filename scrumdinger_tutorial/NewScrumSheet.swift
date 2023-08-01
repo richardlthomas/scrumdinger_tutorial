@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct NewScrumSheet: View {
-    @Binding var isPresentingSheet: Bool
+    @Binding var scrums: [DailyScrum]
+    @Binding var isPresentingNewScrumView: Bool
     @State private var newScrum: DailyScrum = DailyScrum.emptyScrum
     
     var body: some View {
@@ -17,18 +18,24 @@ struct NewScrumSheet: View {
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) {
                         Button("Dismiss") {
-                            isPre
+                            isPresentingNewScrumView = false
                         }
                     }
-                    
-                    Button(action: {}) {
-                        Text("Add")
+                    ToolbarItem(placement: .confirmationAction){
+                        Button("Add") {
+                            scrums.append(newScrum)
+                            isPresentingNewScrumView = false
+                            
+                        }
                     }
                 }
         }
     }
 }
 
-#Preview {
-    NewScrumSheet(isPresentingSheet: .constant(true))
+struct NewScrumSheet_Previews: PreviewProvider {
+    static var previews: some View {
+        NewScrumSheet(scrums: .constant(DailyScrum.sampleData),
+                      isPresentingNewScrumView: .constant(true))
+    }
 }

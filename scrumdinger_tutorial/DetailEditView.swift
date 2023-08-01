@@ -15,7 +15,6 @@ struct DetailEditView: View {
         Form {
             Section(header: Text("Meeting Info")) {
                 TextField("Meeting Title", text: $scrum.title)
-                ThemePicker(selection: $scrum.theme)
                 HStack {
                     Slider(value: $scrum.lengthInMinutesAsDouble, in: 5...30, step: 1) {
                         Text("Meeting Length")
@@ -25,6 +24,7 @@ struct DetailEditView: View {
                     Text("\(scrum.lengthInMinutes) minutes")
                         .accessibilityHidden(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
                 }
+                ThemePicker(selection: $scrum.theme)
             }
             Section(header: Text("Attendees")) {
                 ForEach(scrum.attendees) { attendee in
